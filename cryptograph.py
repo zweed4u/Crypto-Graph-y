@@ -12,8 +12,7 @@ def set_cb_version_header():
 
 style.use('fivethirtyeight')
 
-fig = plt.figure()
-ax1 = fig.add_subplot(1,1,1)
+f, axarr = plt.subplots(3, sharex=True)
 
 def fetch_btc_data():
 	btc_price.append(str(session.get('https://api.coinbase.com/v2/prices/BTC-USD/buy', headers=set_cb_version_header()).json()["data"]["amount"]))
@@ -36,13 +35,15 @@ def animate(i):
 	fetch_btc_data()
 	fetch_eth_data()
 	fetch_ltc_data()
-	ax1.clear()
+	axarr[0].set_title('BTC')
+	axarr[1].set_title('ETH')
+	axarr[2].set_title('LTC')
 	print(f'Plotting BTC: ({epoch[-1]},{btc_price[-1]})')
 	print(f'Plotting ETH: ({epoch[-1]},{eth_price[-1]})')
 	print(f'Plotting LTC: ({epoch[-1]},{ltc_price[-1]})')
-	ax1.plot(epoch, btc_price)
-	ax1.plot(epoch, eth_price)
-	ax1.plot(epoch, ltc_price)
+	axarr[0].plot(epoch, btc_price)
+	axarr[1].plot(epoch, eth_price)
+	axarr[2].plot(epoch, ltc_price)
 
 global init_time
 global btc_price
@@ -57,5 +58,5 @@ ltc_price = []
 
 init_time = int(time.time())
 print(f'(seconds_elapsed, $btc,eth,ltc:usd)')
-ani = animation.FuncAnimation(fig, animate, interval=10000)
+ani = animation.FuncAnimation(f, animate, interval=10000)
 plt.show()
