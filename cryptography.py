@@ -39,8 +39,8 @@ def animate(i):
 	fetch_ltc_data()
 	ax1.clear()
 	print(f'Plotting BTC: ({epoch[-1]},{btc_price[-1]})')
-	print(f'Plotting ETH: ({epoch[-1]},{btc_price[-1]})')
-	print(f'Plotting LTC: ({epoch[-1]},{btc_price[-1]})')
+	print(f'Plotting ETH: ({epoch[-1]},{eth_price[-1]})')
+	print(f'Plotting LTC: ({epoch[-1]},{ltc_price[-1]})')
 	ax1.plot(epoch, btc_price)
 	ax1.plot(epoch, eth_price)
 	ax1.plot(epoch, ltc_price)
@@ -57,6 +57,6 @@ eth_price = []
 ltc_price = []
 
 init_time = int(time.time())
-print(f'(seconds_elapsed, $btc:usd)')
+print(f'(seconds_elapsed, $btc,eth,ltc:usd)')
 ani = animation.FuncAnimation(fig, animate, interval=10000)
 plt.show()
