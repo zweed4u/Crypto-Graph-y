@@ -7,7 +7,6 @@ from matplotlib import style
 import matplotlib.animation as animation
 
 session = requests.session()
-
 def set_cb_version_header():
 	return {'CB-VERSION':datetime.datetime.now().strftime("%Y-%m-%d")}
 
