@@ -5,6 +5,8 @@ import datetime
 import requests
 from matplotlib import style
 import matplotlib.animation as animation
+import sys
+import signal
 
 session = requests.session()
 def set_cb_version_header():
@@ -27,6 +29,7 @@ def fetch_ltc_data():
 	return ltc_price
 
 def fetch_epoch():
+	actual_epochs.append(str(int(time.time())))
 	epoch.append(str(int(time.time())-init_time))
 	return epoch
 
@@ -47,16 +50,33 @@ def animate(i):
 	axarr[2].plot(epoch, ltc_price, color='grey')
 	print()
 
+def signal_handler(signal, frame):
+	print('Writing values to csv...')
+	with open('crypto.csv','w') as file:
+		for point in range(len(actual_epochs)):
+			file.write(f'{actual_epochs[point]},{btc_price[point]},{eth_price[point]},{ltc_price[point]}')
+			file.write('\n')
+
+	print('Exiting plot program...')
+	sys.exit(0)
+
 global init_time
 global btc_price
 global eth_price
 global ltc_price
 global epoch
+global actual_epochs
 
+actual_epochs = []
 epoch = []
 btc_price = []
 eth_price = []
 ltc_price = []
+
+# Handle ctl-c and ctrl-z signals
+signal.signal(signal.SIGINT, signal_handler)
+signal.signal(signal.SIGTSTP, signal_handler)
+
 
 init_time = int(time.time())
 print(f'(seconds_elapsed, $btc,eth,ltc:usd)')
