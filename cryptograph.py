@@ -42,9 +42,9 @@ def animate(i):
 	print(f'Plotting BTC: ({epoch[-1]},{btc_price[-1]})')
 	print(f'Plotting ETH: ({epoch[-1]},{eth_price[-1]})')
 	print(f'Plotting LTC: ({epoch[-1]},{ltc_price[-1]})')
-	axarr[0].plot(epoch, btc_price)
-	axarr[1].plot(epoch, eth_price)
-	axarr[2].plot(epoch, ltc_price)
+	axarr[0].plot(epoch, btc_price, color='yellow')
+	axarr[1].plot(epoch, eth_price, color='black')
+	axarr[2].plot(epoch, ltc_price, color='grey')
 	print()
 
 global init_time
