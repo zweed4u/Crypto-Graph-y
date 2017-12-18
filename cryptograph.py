@@ -38,12 +38,14 @@ def animate(i):
 	axarr[0].set_title('BTC')
 	axarr[1].set_title('ETH')
 	axarr[2].set_title('LTC')
+	print(datetime.datetime.now())
 	print(f'Plotting BTC: ({epoch[-1]},{btc_price[-1]})')
 	print(f'Plotting ETH: ({epoch[-1]},{eth_price[-1]})')
 	print(f'Plotting LTC: ({epoch[-1]},{ltc_price[-1]})')
 	axarr[0].plot(epoch, btc_price)
 	axarr[1].plot(epoch, eth_price)
 	axarr[2].plot(epoch, ltc_price)
+	print()
 
 global init_time
 global btc_price
